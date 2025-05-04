@@ -1,5 +1,8 @@
+'use client'
+
 import React from 'react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import Navigation from './components/Navigation'
 import { useCart } from './context/CartContext'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
@@ -10,30 +13,55 @@ const featuredProducts = [
     name: 'Modern Lounge Chair',
     price: 599,
     image: '/images/lounge-chair.jpg',
-    category: 'Living Room'
+    category: 'Living Room',
+    description: 'Elegant and comfortable modern lounge chair with premium upholstery.'
   },
   {
     id: 2,
     name: 'Minimalist Desk Lamp',
     price: 129,
     image: '/images/desk-lamp.jpg',
-    category: 'Office'
+    category: 'Office',
+    description: 'Adjustable LED desk lamp with sleek, minimalist design.'
   },
   {
     id: 3,
     name: 'Scandinavian Dining Table',
     price: 899,
     image: '/images/dining-table.jpg',
-    category: 'Kitchen'
+    category: 'Kitchen',
+    description: 'Solid oak dining table with clean lines and timeless design.'
   },
   {
     id: 4,
     name: 'Organic Cotton Bedding',
     price: 249,
     image: '/images/bedding.jpg',
-    category: 'Bedroom'
+    category: 'Bedroom',
+    description: 'Luxurious organic cotton bedding set in neutral tones.'
   }
 ]
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5
+    }
+  }
+}
 
 export default function Home() {
   const { addItem } = useCart()
@@ -43,7 +71,12 @@ export default function Home() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <motion.section 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        className="relative h-screen flex items-center justify-center overflow-hidden"
+      >
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/hero-interior.jpg"
@@ -55,30 +88,51 @@ export default function Home() {
           <div className="absolute inset-0 bg-neutral-soft-900/30" />
         </div>
         
-        <div className="relative z-10 text-center text-white max-w-4xl px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="relative z-10 text-center text-white max-w-4xl px-4"
+        >
           <h1 className="text-5xl md:text-6xl font-medium mb-6">
             Transform Your Space
           </h1>
           <p className="text-xl md:text-2xl mb-8">
             Curated interior design pieces for the modern home
           </p>
-          <button className="bg-white text-neutral-soft-900 px-8 py-3 rounded-full text-lg font-medium hover:bg-neutral-soft-100 transition-colors">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-white text-neutral-soft-900 px-8 py-3 rounded-full text-lg font-medium hover:bg-neutral-soft-100 transition-colors"
+          >
             Shop Now
-          </button>
-        </div>
-      </section>
+          </motion.button>
+        </motion.div>
+      </motion.section>
 
       {/* Featured Products */}
       <section className="py-20 px-4 bg-neutral-soft-50">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-medium text-neutral-soft-900 mb-12 text-center">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-medium text-neutral-soft-900 mb-12 text-center"
+          >
             Featured Collection
-          </h2>
+          </motion.h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
             {featuredProducts.map((product) => (
-              <div
+              <motion.div
                 key={product.id}
+                variants={itemVariants}
                 className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="relative h-64">
@@ -96,22 +150,27 @@ export default function Home() {
                   <h3 className="text-lg font-medium text-neutral-soft-900 mb-2">
                     {product.name}
                   </h3>
+                  <p className="text-neutral-soft-600 text-sm mb-4">
+                    {product.description}
+                  </p>
                   <div className="flex items-center justify-between">
-                    <p className="text-neutral-soft-900">
+                    <p className="text-neutral-soft-900 font-medium">
                       ${product.price}
                     </p>
-                    <button
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                       onClick={() => addItem(product)}
                       className="flex items-center gap-2 bg-neutral-soft-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-neutral-soft-800 transition-colors"
                     >
                       <HiOutlineShoppingBag className="h-4 w-4" />
                       Add to Cart
-                    </button>
+                    </motion.button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
     </>
