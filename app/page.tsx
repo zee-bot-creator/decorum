@@ -12,7 +12,7 @@ const featuredProducts = [
     id: 1,
     name: 'Modern Lounge Chair',
     price: 599,
-    image: '/images/lounge-chair.jpg',
+    image: 'https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=800&q=80',
     category: 'Living Room',
     description: 'Elegant and comfortable modern lounge chair with premium upholstery.'
   },
@@ -20,7 +20,7 @@ const featuredProducts = [
     id: 2,
     name: 'Minimalist Desk Lamp',
     price: 129,
-    image: '/images/desk-lamp.jpg',
+    image: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=800&q=80',
     category: 'Office',
     description: 'Adjustable LED desk lamp with sleek, minimalist design.'
   },
@@ -28,7 +28,7 @@ const featuredProducts = [
     id: 3,
     name: 'Scandinavian Dining Table',
     price: 899,
-    image: '/images/dining-table.jpg',
+    image: 'https://images.unsplash.com/photo-1615066390971-03e4e1c36ddf?w=800&q=80',
     category: 'Kitchen',
     description: 'Solid oak dining table with clean lines and timeless design.'
   },
@@ -36,7 +36,7 @@ const featuredProducts = [
     id: 4,
     name: 'Organic Cotton Bedding',
     price: 249,
-    image: '/images/bedding.jpg',
+    image: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80',
     category: 'Bedroom',
     description: 'Luxurious organic cotton bedding set in neutral tones.'
   }
@@ -79,7 +79,7 @@ export default function Home() {
       >
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/hero-interior.jpg"
+            src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1600&q=80"
             alt="Modern interior design"
             fill
             className="object-cover"
